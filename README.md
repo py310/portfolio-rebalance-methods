@@ -24,8 +24,8 @@ The `static_weights` script contains a function to compute portfolio metrics bas
 #### Parameters:
 
 - `asset_prices` (pd.DataFrame): DataFrame with synchronized asset prices.
-- `allocation_weights` (Optional[List[float]]): List of initial allocation percentages for each asset.
 - `rebalance_frequency` (str): Rebalancing frequency as a pandas frequency string.
+- `allocation_weights` (Optional[List[float]]): List of initial allocation percentages for each asset.
 - `start_deposit` (float): Initial deposit or starting amount for the portfolio.
 
 #### Returns:
@@ -45,7 +45,7 @@ rebalance_frequency = 'Q'
 start_deposit = 100.0
 
 # Calculate portfolio metrics
-equity, allocations = calculate_portfolio(asset_prices, allocation_weights, rebalance_frequency, start_deposit)
+equity, allocations = calculate_portfolio(asset_prices, rebalance_frequency, allocation_weights, start_deposit)
 
 # Print or use the results
 print("Cumulative Equity:")
