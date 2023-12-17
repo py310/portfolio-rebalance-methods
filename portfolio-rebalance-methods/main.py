@@ -1,6 +1,6 @@
 
 import pandas as pd
-from static_weights import calculate_portfolio
+from portfolio_rebalancer import PortfolioRebalancer
 
 if __name__ == "__main__":
 
@@ -8,15 +8,24 @@ if __name__ == "__main__":
     asset_ts = pd.read_csv('data/example-data.csv', index_col=0, parse_dates=['timestamp'])
 
     # Define initial allocation weights and rebalance frequency
-    reb_freq = 'Q'
     allocation = [0.333, 0.333, 0.334]
+    reb_freq = 'Q'
+    
+    # Specify weights type
+    weights_type = 'static'  # Change this to 'risk_parity' if needed
+
+    # Create PortfolioRebalancer instance
+    rebalancer = PortfolioRebalancer(asset_prices=asset_ts, weights_type=weights_type, rebalance_frequency=reb_freq, static_weights=allocation)
 
     # Calculate portfolio metrics
-    result_equity, result_allocations = calculate_portfolio(asset_ts, reb_freq, allocation)
+    result_equity, result_allocations = rebalancer.calculate_portfolio()
 
-    # Save results to CSV files
-    result_equity.to_csv('equity_static_weights.csv', sep=';')
-    result_allocations.to_csv('allocations_static_weights.csv', sep=';')
+    # Save results to CSV files with weights type in filenames
+    equity_filename = f'equity_{weights_type}.csv'
+    allocations_filename = f'allocations_{weights_type}.csv'
+    
+    result_equity.to_csv(equity_filename, sep=';')
+    result_allocations.to_csv(allocations_filename, sep=';')
 
     # Print results
     print("Cumulative Equity:")
