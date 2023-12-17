@@ -1,2 +1,4 @@
 __pycache__/
 .vscode/
+equity_*.csv
+allocations_*.csv
